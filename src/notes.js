@@ -1,14 +1,14 @@
 const mailWizz = require("node-mailwizz");
 const axios = require("axios");
-const app = require("./app");
+// const app = require("./app");
 
-// const config = {
-//   publicKey: "cabf1c85521457cc6421d9e69983c54743105498",
-//   secret: "b6170c60c51a46dc92c49141157508cc851ce512",
-//   baseUrl: "https://app.heikefreiremail.com/api",
-// };
+const config = {
+  publicKey: "cabf1c85521457cc6421d9e69983c54743105498",
+  secret: "b6170c60c51a46dc92c49141157508cc851ce512",
+  baseUrl: "https://app.heikefreiremail.com/api",
+};
 
-// const subscribers = new mailWizz.ListSubscribers(config);
+const subscribers = new mailWizz.ListSubscribers(config);
 
 // @heikefreire
 // var userInfo = {
@@ -16,6 +16,7 @@ const app = require("./app");
 //   EMAIL: "tristanmayo@heikefreire.com",
 //   FNAME: "Tristan",
 //   LNAME: "Calval",
+//   SEDES: "madrid",
 //   PROVINCIA: "Provincia Test",
 //   DATECONVERSION: "2022-10-19",
 //   NUMERO: "601348190",
@@ -24,17 +25,22 @@ const app = require("./app");
 // };
 
 // @gmail
-// var userInfo = {
-//   //replace the values with your user info
-//   EMAIL: "tantris1998@gmail.com",
-//   FNAME: "Tristan",
-//   LNAME: "Calval",
-//   PROVINCIA: "Provincia Test",
-//   DATECONVERSION: "2022-10-19",
-//   NUMERO: "601348190",
-//   SEDE: "madrid",
-//   INTERES: "msg2",
-// };
+var userInfo = {
+  //replace the values with your user info
+  EMAIL: "tantris1998@gmail.com",
+  FNAME: "Tristan",
+  LNAME: "Calval",
+  SEDES: "barcelona, madrid",
+  SEDE_MADRID: "true",
+  PROVINCIA: "Provincia Test",
+  DATECONVERSION: "2022-10-19",
+  NUMERO: "601348190",
+  SEDE: "madrid",
+  INTERES: "msg2",
+  details: {
+    ip_address: "125.125.125.125",
+  },
+};
 
 // SEARCH
 // subscribers
@@ -51,17 +57,17 @@ const app = require("./app");
 //     //handle error here
 //     console.log(err);
 //   });
-// zp9643zjko5a8
+// xp21259bv531b
 
-// subscribers
-//   .update("xk0614bm67e6d", "zp9643zjko5a8", userInfo)
-//   .then(function (result) {
-//     console.log(result);
-//   })
-//   .catch(function (err) {
-//     //handle error here
-//     console.log(err);
-//   });
+subscribers
+  .update("xk0614bm67e6d", "kg859b9231e21", userInfo)
+  .then(function (result) {
+    console.log(result);
+  })
+  .catch(function (err) {
+    //handle error here
+    console.log(err);
+  });
 
 // RESPONSES
 // CREATED
