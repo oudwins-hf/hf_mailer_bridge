@@ -12,6 +12,7 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     CORSWHITELIST: Joi.string().required(),
     VALID_API_KEY: Joi.string().required(),
+    WHOIS_API_KEY: Joi.string().description("api key for whois service"),
     MAILWIZZ_PUBLIC_KEY: Joi.string().required(),
     MAILWIZZ_SECRET: Joi.string().required(),
     MAILWIZZ_BASE_URL: Joi.string().required(),
@@ -40,6 +41,13 @@ module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   apiKey: envVars.VALID_API_KEY,
+  corswhitelsit: envVars.CORSWHITELIST,
+  whoisApiKey: envVars.WHOIS_API_KEY,
+  mailwizz: {
+    publicKey: envVars.MAILWIZZ_PUBLIC_KEY,
+    secret: envVars.MAILWIZZ_SECRET,
+    url: envVars.MAILWIZZ_BASE_URL,
+  },
   email: {
     smtp: {
       host: envVars.SMTP_HOST,
