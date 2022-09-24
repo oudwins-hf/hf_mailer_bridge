@@ -12,7 +12,6 @@ FUNNEL
 ## TODO
 
 - Check what happens when error is sent as reponse to webhook
-- Sanitize fields, all fields! Fuck
 
 ## What it needs to do!
 
