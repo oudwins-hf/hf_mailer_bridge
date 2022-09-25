@@ -13,14 +13,15 @@ const subscriberService = new mailwizz.ListSubscribers({
 
 router.use(auth());
 
-router.get("/subscriber_action", async (req, res, next) => {
+router.post("/subscriber_action", async (req, res, next) => {
   //
   const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
 
   // Need to extract the list id & the ip then place it however
   //
-  console.log(req.query);
-  if (req.body) console.log("body true");
+  delete reqBody.list_id;
+  delete reqBody.IP;
+  console.log(reqBody);
   res.send();
 });
 
