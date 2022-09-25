@@ -13,7 +13,10 @@ const auth =
   };
 
 function validateApiKey(req, resolve, reject, requiredRights) {
-  resolve();
+  if (req.header("Authorization") === config.apiKey) {
+    resolve();
+  }
+  reject(new ApiError(httpStatus.UNAUTHORIZED, "Please Authenticate"));
 }
 
 module.exports = auth;
