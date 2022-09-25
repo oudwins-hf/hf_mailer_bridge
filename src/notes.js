@@ -25,22 +25,22 @@ const subscribers = new mailWizz.ListSubscribers(config);
 // };
 
 // @gmail
-var userInfo = {
-  //replace the values with your user info
-  EMAIL: "tantris1998@gmail.com",
-  FNAME: "Tristan",
-  LNAME: "Calval",
-  SEDES: "barcelona, madrid",
-  SEDE_MADRID: "true",
-  PROVINCIA: "Provincia Test",
-  DATECONVERSION: "2022-10-19",
-  NUMERO: "601348190",
-  SEDE: "madrid",
-  INTERES: "msg2",
-  details: {
-    ip_address: "125.125.125.125",
-  },
-};
+// var userInfo = {
+//   //replace the values with your user info
+//   EMAIL: "tantris1998@gmail.com",
+//   FNAME: "Tristan",
+//   LNAME: "Calval",
+//   SEDES: "barcelona, madrid",
+//   SEDE_MADRID: "true",
+//   PROVINCIA: "Provincia Test",
+//   DATECONVERSION: "2022-10-19",
+//   NUMERO: "601348190",
+//   SEDE: "madrid",
+//   INTERES: "msg2",
+//   details: {
+//     ip_address: "125.125.125.125",
+//   },
+// };
 
 // SEARCH
 // subscribers
@@ -58,6 +58,8 @@ var userInfo = {
 //     console.log(err);
 //   });
 // xp21259bv531b
+
+const userInfo = { FNAME: "tristan", EMAIL: "tantris1998@gmail.com" };
 
 subscribers
   .update("xk0614bm67e6d", "kg859b9231e21", userInfo)
