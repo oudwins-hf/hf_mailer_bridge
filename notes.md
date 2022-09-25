@@ -12,6 +12,7 @@ FUNNEL
 ## TODO
 
 - Check what happens when error is sent as reponse to webhook
+- I cannot send nested json via gravity forms.... So i need to delete from the object all the fields I need outside of it, then use them & throw them at mailwizz
 
 ## What it needs to do!
 
@@ -30,6 +31,8 @@ FUNNEL
 - To create a sequence of autoresponders I need to tie the first action to subscribe moment.
   - Then the next actions need to be tied to the opening or sending of other campaigns (auto responders)
 - No puedo hacer acción sobre cliente cuando toma una acción. Si que puedo! But i have to set it to send to existing & imported subscribers
+
+
 
 ## Whatsapp!
 
