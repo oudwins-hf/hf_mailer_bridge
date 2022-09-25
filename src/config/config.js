@@ -13,6 +13,7 @@ const envVarsSchema = Joi.object()
     CORSWHITELIST: Joi.string().required(),
     VALID_API_KEY: Joi.string().required(),
     WHOIS_API_KEY: Joi.string().description("api key for whois service"),
+    HUBSPOT_API_KEY: Joi.string().description("api key for hubspot"),
     MAILWIZZ_PUBLIC_KEY: Joi.string().required(),
     MAILWIZZ_SECRET: Joi.string().required(),
     MAILWIZZ_BASE_URL: Joi.string().required(),
@@ -42,7 +43,12 @@ module.exports = {
   port: envVars.PORT,
   apiKey: envVars.VALID_API_KEY,
   corswhitelsit: envVars.CORSWHITELIST,
-  whoisApiKey: envVars.WHOIS_API_KEY,
+  whois: {
+    apiKey: envVars.WHOIS_API_KEY,
+  },
+  hubspot: {
+    apiKey: envVars.HUBSPOT_API_KEY,
+  },
   mailwizz: {
     publicKey: envVars.MAILWIZZ_PUBLIC_KEY,
     secret: envVars.MAILWIZZ_SECRET,
