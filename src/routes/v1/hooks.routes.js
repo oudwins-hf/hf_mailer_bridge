@@ -1,9 +1,8 @@
 const express = require("express");
 const httpStatus = require("http-status");
 const auth = require("../../middlewares/auth");
-const maillingService = require("../../services/mailling.service");
-const validationService = require("../../services/validation.service");
-const ApiError = require("../../utils/ApiError");
+const hookController = require("../../controllers/hookController");
+const trackingService = require("../../services/tracking.service");
 
 const router = express.Router();
 
@@ -14,51 +13,26 @@ router.post("/cnu_subscriber", async (req, res, next) => {
 
   const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
 
-  // Extracting data to reorder it.
-  // Need to extract the list id & the ip then place it however
-  const { userIp, listId, verifyMail } = reqBody;
-  delete reqBody.userIp;
-  delete reqBody.listId;
-  delete reqBody.verifyMail;
-  reqBody.details = {
-    ip_address: userIp || req.socket.remoteAddress,
-    status: "confirmed",
-  };
-
-  // ! SEARCH BY EMAIL
-  let subscriberExists;
-  try {
-    subscriberExists = await maillingService.subscribers.searchByEmail(
-      listId,
-      reqBody.EMAIL
-    );
-  } catch (err) {
-    subscriberExists = err;
-  }
-  subscriberExists = JSON.parse(subscriberExists);
-  // status -> success = subscriber exists
-  // status -> error = subscriber does not exist
-  if (subscriberExists.status === "success") {
-    const updatedSub = await maillingService.subscribers.update(
-      listId,
-      subscriberExists.data.subscriber_uid,
-      reqBody
-    );
-  } else {
-    const isvalid = await validationService.validateMail(reqBody.EMAIL);
-    if (!isvalid)
-      return next(
-        new ApiError(
-          httpStatus.BAD_REQUEST,
-          `${reqBody.EMAIL} is an invalid email`,
-          true
-        )
-      );
-    const createdSub = await maillingService.subscribers.create(
-      listId,
-      reqBody
-    );
-  }
+  await hookController.createOrUpdateSubscriber(reqBody, req, res, next);
 });
 
+router.post("/track_action", async (req, res, next) => {
+  res.status(httpStatus.OK).send("registered Hook");
+
+  // 1. Get Unique User ID (hubspot tracking code)
+  const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
+  const uuid = reqBody.uuid;
+  delete reqBody.uuid;
+  // we are expecting
+  // - uuid
+  // - listId (or funnelId)
+  // - ??? some fields to update
+
+  // 2. Get the user email by calling CRM API
+  const userdata = await trackingService.getContactByUUID(uuid);
+  // 3. call our c&update subscriber hook with the content & the email
+
+  // HOW AM I GOING TO DO THIS?
+  // I need a list of funnels then their steps link to the url? Maybe I can store that info inside every page. Load the script with the function then make a script file that calls the function telling it the funnel & the step (i.e what it is called)
+});
 module.exports = router;
