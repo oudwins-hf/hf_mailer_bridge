@@ -23,6 +23,8 @@ router.post("/track_action", async (req, res, next) => {
   const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
   const uuid = reqBody.uuid;
   delete reqBody.uuid;
+  const listId = reqBody.listId;
+  delete reqBody.listId;
   // we are expecting
   // - uuid
   // - listId (or funnelId)
@@ -31,8 +33,13 @@ router.post("/track_action", async (req, res, next) => {
   // 2. Get the user email by calling CRM API
   const userdata = await trackingService.getContactByUUID(uuid);
   // 3. call our c&update subscriber hook with the content & the email
-
-  // HOW AM I GOING TO DO THIS?
-  // I need a list of funnels then their steps link to the url? Maybe I can store that info inside every page. Load the script with the function then make a script file that calls the function telling it the funnel & the step (i.e what it is called)
+  if (!userdata) {
+    await hookController.createOrUpdateSubscriber(
+      { ...reqBody, ...userdata },
+      req,
+      res,
+      next
+    );
+  }
 });
 module.exports = router;
