@@ -33,7 +33,9 @@ const errorHandler = (err, req, res, next) => {
     logger.error(err);
   }
 
-  // res.status(statusCode).send(response);
+  if (!res.headersSent) {
+    res.status(statusCode).send(response);
+  }
 };
 
 module.exports = {
