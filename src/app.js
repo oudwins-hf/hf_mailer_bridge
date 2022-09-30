@@ -49,6 +49,13 @@ app.use(xss());
 app.use(cors());
 app.options("*", cors());
 
+// health route
+app.use("/status", async (req, res, next) => {
+  res.status(200).send({
+    status: "active",
+  });
+});
+
 // v1 api routes
 app.use("/v1", routes);
 
