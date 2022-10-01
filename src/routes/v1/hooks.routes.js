@@ -3,6 +3,7 @@ const httpStatus = require("http-status");
 const auth = require("../../middlewares/auth");
 const hookController = require("../../controllers/hookController");
 const trackingService = require("../../services/tracking.service");
+const reqFormatter = require("../../utils/formatRequestData");
 
 const router = express.Router();
 
@@ -11,7 +12,9 @@ router.use(auth());
 router.post("/cnu_subscriber", async (req, res, next) => {
   res.status(httpStatus.OK).send("registered Hook");
 
-  const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
+  const reqBody = reqFormatter.formatRequestObj(
+    Object.keys(req.body).length > 0 ? req.body : req.query
+  );
 
   await hookController.createOrUpdateSubscriber(reqBody, req, res, next);
 });
@@ -20,7 +23,9 @@ router.post("/track_action", async (req, res, next) => {
   res.status(httpStatus.OK).send("registered Hook");
 
   // 1. Get Unique User ID (hubspot tracking code)
-  const reqBody = Object.keys(req.body).length > 0 ? req.body : req.query;
+  const reqBody = reqFormatter.formatRequestObj(
+    Object.keys(req.body).length > 0 ? req.body : req.query
+  );
   const uuid = reqBody.uuid;
   delete reqBody.uuid;
   const listId = reqBody.listId;
