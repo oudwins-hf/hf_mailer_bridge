@@ -1,6 +1,7 @@
 const maillingService = require("../services/mailling.service");
 const validationService = require("../services/validation.service");
 const ApiError = require("../utils/ApiError");
+const { retry, toThunk } = require("../utils/retry");
 
 const createOrUpdateSubscriber = async function (reqBody, req, res, next) {
   // Extracting data to reorder it.
@@ -27,10 +28,13 @@ const createOrUpdateSubscriber = async function (reqBody, req, res, next) {
   // status -> success = subscriber exists
   // status -> error = subscriber does not exist
   if (subscriberExists.status === "success") {
-    const updatedSub = await maillingService.subscribers.update(
-      listId,
-      subscriberExists.data.subscriber_uid,
-      reqBody
+    const updatedSub = await retry(
+      toThunk(
+        maillingService.subscribers.update(),
+        listId,
+        subscriberExists.data.subscriber_uid,
+        reqBody
+      )
     );
   } else {
     const isvalid = await validationService.validateMail(reqBody.EMAIL);
@@ -42,9 +46,8 @@ const createOrUpdateSubscriber = async function (reqBody, req, res, next) {
           true
         )
       );
-    const createdSub = await maillingService.subscribers.create(
-      listId,
-      reqBody
+    const createdSub = await retry(
+      toThunk(maillingService.subscribers.create, listId, reqBody)
     );
   }
 };
