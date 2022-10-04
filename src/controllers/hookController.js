@@ -31,7 +31,7 @@ const createOrUpdateSubscriber = async function (reqBody, req, res, next) {
   if (subscriberExists.status === "success") {
     const updatedSub = await retry(
       toThunk(
-        maillingService.subscribers.update(),
+        maillingService.subscribers.update,
         listId,
         subscriberExists.data.subscriber_uid,
         reqBody
