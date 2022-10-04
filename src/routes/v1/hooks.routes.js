@@ -47,4 +47,15 @@ router.post("/track_action", async (req, res, next) => {
     );
   }
 });
+
+router.post("/logreq", async (req, res, next) => {
+  console.log(Object.keys(req.body).length > 0 ? req.body : req.query);
+  const reqBody = reqFormatter.formatRequestObj(
+    Object.keys(req.body).length > 0 ? req.body : req.query
+  );
+  res.status(httpStatus.OK).send("registered Hook");
+  console.log(reqBody);
+  console.log(JSON.stringify(reqBody));
+});
+
 module.exports = router;
