@@ -1,3 +1,5 @@
+const logger = require("../config/logger");
+
 const delay = (fn, ms) =>
   new Promise((resolve) => setTimeout(() => resolve(fn()), ms));
 
@@ -9,7 +11,10 @@ const retry = async (fn, maxAttempts = 4) => {
     try {
       return await fn();
     } catch (err) {
-      if (attempt <= maxAttempts) {
+      if (
+        attempt <= maxAttempts ||
+        err.error === "Your request expired. Please refer to the documentation."
+      ) {
         const nextAttempt = attempt + 1;
         const delayInSeconds = Math.max(
           Math.min(
@@ -18,7 +23,9 @@ const retry = async (fn, maxAttempts = 4) => {
           ),
           1
         );
-        //console.error(`Retrying after ${delayInSeconds} seconds due to:`, err);
+        logger.info(
+          `Retrying after ${delayInSeconds} seconds due to: ${err.error}`
+        );
         return delay(() => execute(nextAttempt), delayInSeconds * 1000);
       } else {
         throw err;
