@@ -24,7 +24,9 @@ const retry = async (fn, maxAttempts = 4) => {
           1
         );
         logger.info(
-          `Retrying after ${delayInSeconds} seconds due to: ${err.error}`
+          `Retrying after ${delayInSeconds} seconds due to: ${JSON.stringify(
+            err
+          )}`
         );
         return delay(() => execute(nextAttempt), delayInSeconds * 1000);
       } else {
