@@ -1,13 +1,14 @@
 const mailwizz = require("node-mailwizz");
 const config = require("../config/config");
 
-const subscribers = new mailwizz.ListSubscribers({
+const mwConfig = {
   publicKey: config.mailwizz.publicKey,
   secret: config.mailwizz.secret,
   baseUrl: config.mailwizz.url,
-});
+};
 
 const searchByEmail = async function (listId, email) {
+  const subscribers = new mailwizz.ListSubscribers(mwConfig);
   return new Promise((resolve, reject) => {
     subscribers
       .emailSearch(listId, email)
@@ -17,6 +18,7 @@ const searchByEmail = async function (listId, email) {
 };
 
 const update = async function (listId, userId, userInfo) {
+  const subscribers = new mailwizz.ListSubscribers(mwConfig);
   return new Promise((resolve, reject) => {
     subscribers
       .update(listId, userId, userInfo)
@@ -26,6 +28,7 @@ const update = async function (listId, userId, userInfo) {
 };
 
 const create = async function (listId, userInfo) {
+  const subscribers = new mailwizz.ListSubscribers(mwConfig);
   return new Promise((resolve, reject) => {
     subscribers
       .create(listId, userInfo)
