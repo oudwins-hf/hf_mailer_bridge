@@ -14,6 +14,8 @@ FUNNEL
 - Check what happens when error is sent as reponse to webhook
 - I cannot send nested json via gravity forms.... So i need to delete from the object all the fields I need outside of it, then use them & throw them at mailwizz
 - Add country & IP to hubspot request & information sent!
+- change body parser into this (other parser cannot be configured) -> https://www.npmjs.com/package/qs#readme & configure so that the parser does not remove + signs if sent on query params.
+- add a log in the case of an invalid email
 
 ## What it needs to do!
 
