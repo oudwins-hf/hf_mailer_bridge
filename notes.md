@@ -34,3 +34,8 @@ FUNNEL
 - To create a sequence of autoresponders I need to tie the first action to subscribe moment.
   - Then the next actions need to be tied to the opening or sending of other campaigns (auto responders)
 - No puedo hacer acción sobre cliente cuando toma una acción. Si que puedo! But i have to set it to send to existing & imported subscribers
+
+## Endpoints behind
+
+- /v1/hooks/
+- /status
