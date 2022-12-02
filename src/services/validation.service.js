@@ -10,7 +10,7 @@ const validateMail = async function (email) {
     method: "get",
     url,
   });
-  logger.verbose(`Validation for ${email}; ${JSON.stringify(data)}`);
+  logger.info(`Validation for ${email}; ${JSON.stringify(data)}`);
 
   // Is email good
   if (
