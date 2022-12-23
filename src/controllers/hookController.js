@@ -12,7 +12,7 @@ const createOrUpdateSubscriber = async function (reqBody, req, res, next) {
   delete reqBody.listId;
   reqBody.details = {
     ip_address: userIp || req.socket.remoteAddress,
-    status: "confirmed",
+    //status: "confirmed",
   };
 
   // ! SEARCH BY EMAIL
