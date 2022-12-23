@@ -31,7 +31,7 @@ const retry = async (fn, maxAttempts = 4) => {
         );
         return delay(() => execute(nextAttempt), delayInSeconds * 1000);
       } else {
-        throw err;
+        logger.error(err);
       }
     }
   };
