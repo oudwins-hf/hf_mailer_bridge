@@ -11,7 +11,7 @@ const retry = async (fn, maxAttempts = 4) => {
     try {
       return await fn();
     } catch (err) {
-      logger.info(`Forced to retry due to error: ${error}`);
+      logger.info(`Forced to retry due to error: ${err}`);
       if (
         attempt <= maxAttempts ||
         err.error === "Your request expired. Please refer to the documentation."
